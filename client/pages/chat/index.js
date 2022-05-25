@@ -5,6 +5,7 @@ import { useJoin } from "../../contexts/JoinContext";
 import InfoBar from "../../components/InfoBar";
 import { useChat } from "../../contexts/ChatContext";
 import InputField from "../../components/InputField";
+import Messages from "../../components/Messages";
 
 let socket;
 
@@ -44,6 +45,7 @@ const Chat = () => {
       <div className="outerContainer">
         <div className="container">
           <InfoBar room={room}/>
+          <Messages/>
           <InputField send={sendMessage}/>
         
         </div>
