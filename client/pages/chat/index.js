@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 import { useJoin } from "../../contexts/JoinContext";
+import InfoBar from "../../components/InfoBar";
+import { useChat } from "../../contexts/ChatContext";
+import InputField from "../../components/InputField";
 
 let socket;
 
 const Chat = () => {
   const { name, setName, room, setRoom } = useJoin();
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const {message, setMessage, messages, setMessages} = useChat();
   const ENDPOINT = "localhost:5000";
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -41,13 +43,9 @@ const Chat = () => {
     <>
       <div className="outerContainer">
         <div className="container">
-          <input
-            value={message}
-            onChange={(e) => {
-              setMessage(e.target.value);
-            }}
-            onKeyPress={(e) => (e.key == "Enter" ? sendMessage(e) : null)}
-          />
+          <InfoBar room={room}/>
+          <InputField send={sendMessage}/>
+        
         </div>
       </div>
     </>
